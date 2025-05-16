@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="PL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Kursy Komputerowe</title>
+</head>
+<body>
+    <section id="naglowkowy">
+        <img src="image/logoklawiatura.png" alt="Logo">
+    </section>
+    <br>
+    <section id="menu">
+        <div id="linki">
+            <a href="index.html">Strona główna</a>
+            <a href="raty.html">Koszt rat</a>
+            <a href="https://moje-szkolenia.pl/">Nasz partner</a>
+        </div>
+    </section>
+
+    <section id="glowny1">
+        <h3>Oblicz miesięczną ratę </h3>
+
+        <input type="checkbox" id="React" name="kurs" value="5000">
+        <label for="React">Kurs React.js (5000 zł)</label><br>
+
+        <input type="checkbox" id="Js" name="kurs" value="3000">
+        <label for="Js">Kurs JavaScript (3000 zł)</label><br>
+
+        Liczba rat: <input type="number" id="liczbaRat"><br><br>
+
+        <select id="miasto">
+            <option value="Warszawa">Warszawa</option>
+            <option value="Katowice">Katowice</option>
+            <option value="Gdańsk">Gdańsk</option>
+        </select>
+        <br><br>
+
+        <button type="button" onclick="oblicz()">Oblicz</button>
+
+        <p id="wynik"></p>
+    </section>
+
+    <section id="stopka">
+        Autor strony: 00000000
+    </section>
+
+    
+    <script>
+        function oblicz() {
+            const kursy = document.querySelectorAll('input[name="kurs"]:checked');
+            let suma = 0;
+
+            kursy.forEach(kurs => {
+                suma += parseFloat(kurs.value);
+            });
+
+            const liczbaRat = parseInt(document.getElementById("liczbaRat").value);
+            const miasto = document.getElementById("miasto").value;
+
+            
+            if (isNaN(liczbaRat) || liczbaRat <= 0) {
+                document.getElementById("wynik").textContent = "Podaj poprawną liczbę rat.";
+                return;
+            }
+
+            if (suma === 0) {
+                document.getElementById("wynik").textContent = "Wybierz przynajmniej jeden kurs.";
+                return;
+            }
+
+            const rata = (suma / liczbaRat).toFixed(2);
+            const wynik = `Kurs odbędzie się w ${miasto}. Koszt całkowity: ${suma} zł. Płacisz ${liczbaRat} rat po ${rata} zł.`;
+
+            document.getElementById("wynik").textContent = wynik;
+        }
+    </script>
+</body>
+</html>
